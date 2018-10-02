@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0.5",
+  "info": {
+    "version": "1.0.0",
+    "title": "Posts spec",
+    "description": "Spec for testPosts",
+    "termsOfService": "http://swagger.io/terms/"
+  },
+  "basePath": "/",
+  "tags" : [
+    {
+      "name": "User",
+      "description": "API for User"
+    },
+    {
+      "name": "Posts",
+      "description": "API for Posts"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {
+    "/auth/signup": {
+       "post": {
+          "tags": ["User"],
+          "description": "Registrate new user",
+          "operationId": "signupUser",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+              {
+                "name": "body",
+                "in": "body",
+                "description": "Create new user",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/create"
+                }
+              }
+          ],
+          "responses": {
+            "200": {
+              "description": "create response",
+              "schema": {
+                 "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": ["User"],
+        "description": "Registrate new user",
+        "operationId": "signinUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login as a user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/create"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "create response",
+            "schema": {
+              "$ref": "#/definitions/responseToken"
+            }
+          }
+        }
+      }
+    },
+    "/posts/page/{page}": {
+      "get":{
+          "tags": ["Posts"],
+          "description": "Returns the status of something",
+          "operationId": "getPosts",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+              {
+                "name": "page",
+                "in": "path",
+                "description": "page to fetch",
+                "required": true,
+                "type": "string"
+              }
+            ],
+        "responses": {
+            "200": {
+              "description": "response",
+              "schema": {
+                "$ref": "#/definitions/getPosts"
+              }
+            }
+          }
+        }
+      },
+    "/posts/": {
+      "post": {
+        "tags": ["Posts"],
+        "description": "Add new post",
+        "operationId": "addPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Add post",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "create response",
+            "schema": {
+              "$ref": "#/definitions/responseAdd"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{postId}": {
+      "get":{
+        "tags": ["Posts"],
+        "description": "Returns the status of something",
+        "operationId": "getPosts",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "post to fetch",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "response",
+            "schema": {
+              "$ref": "#/definitions/getPosts"
+            }
+          }
+        }
+      },
+      "delete":{
+        "tags":["Posts"],
+        "description":"Delete a post",
+        "operationId":"deletePost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "delete response",
+            "schema":{
+              "$ref":"#/definitions/delete"
+            }
+          }
+        }
+      },
+      "patch":{
+        "tags":["Posts"],
+        "description":"patch a post",
+        "operationId":"patchPost",
+        "produces": [
+          "application/json"
+        ],
+        "parameters":[
+          {
+            "name": "postId",
+            "in": "path",
+            "description": "Post to patch",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Post to patch",
+            "required": true,
+            "type": "array",
+            "schema": {
+              "$ref": "#/definitions/patchPost"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "patch response",
+            "schema":{
+              "$ref":"#/definitions/delete"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "create": {
+      "properties": {
+        "username": {
+          "required":true,
+          "type": "string",
+          "example": "user1"
+        },
+        "password": {
+          "required":true,
+          "type": "string",
+          "example": "qwerty123"
+        } 
+      }
+    },
+    "addPost": {
+      "properties": {
+        "body": {
+          "required":true,
+          "type": "string",
+          "example": "New body for Post"
+        }
+      }
+    },
+    "patchPost": {
+      "properties": {
+        "propName": {
+          "required":true,
+          "type": "string",
+          "example": "body"
+        },
+        "value": {
+          "required":true,
+          "type": "string",
+          "example": "New body content for Post"
+        }
+      }
+    },
+    "getPosts": {
+        "properties": {
+          "username": {
+            "required":true,
+            "type": "string",
+            "example": "User"
+          },
+          "body": {
+            "required":true,
+            "type": "string",
+            "example": "something"
+          }
+      }
+    },
+    "response": {
+        "properties": {
+            "_id": {
+              "required": true,
+              "type" : "string",
+              "example" : "asdflkjkwefkjnjnkjd"
+            },
+          "username": {
+            "required": true,
+            "type" : "string",
+            "example" : "user"
+          }
+        }
+    },
+    "responseToken": {
+      "properties": {
+        "_id": {
+          "required": true,
+          "type" : "string",
+          "example" : "asdflkjkwefkjnjnkjd"
+        },
+        "token": {
+          "required": true,
+          "type" : "string",
+          "example" : "asdflkjkwefkjnjnkjdasdflkjkwefkjnjnkjdasdflkjkwefkjnjnkjdasdflkjkwefkjnjnkjdasdflkjkwefkjnjnkjdasdflkjkwefkjnjnkjd"
+        }
+      }
+    },
+    "responseAdd": {
+      "properties": {
+        "postId": {
+          "required": true,
+          "type" : "string",
+          "example" : "asdf231sdvdfer213"
+        }
+      }
+    },
+    "delete": {
+        "properties": {
+            "postId": {
+              "required": true,
+              "type" : "string",
+              "example" : "asdf231sdvdfer213"
+            }
+        }
+    },
+    "400error" : {
+       "properties": {
+        "message": {
+          "type": "string",
+          "example" : "400 Bad Request"
+        }
+      }
+    }
+  }
+}
