@@ -16,6 +16,10 @@
   "bugs": {
     "url": "https://github.com/Ilyahas/fluvius-test/issues"
   },
+  "engines": {
+    "node": "0.8",
+    "npm": "1.2.x"
+  },
   "homepage": "https://github.com/Ilyahas/fluvius-test#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
