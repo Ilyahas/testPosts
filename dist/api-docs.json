@@ -200,41 +200,6 @@
             }
           }
         }
-      },
-      "patch":{
-        "tags":["Posts"],
-        "description":"patch a post",
-        "operationId":"patchPost",
-        "produces": [
-          "application/json"
-        ],
-        "parameters":[
-          {
-            "name": "postId",
-            "in": "path",
-            "description": "Post to patch",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "description": "Post to patch",
-            "required": true,
-            "type": "string",
-            "schema": {
-              "$ref": "#/definitions/patchPost"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "patch response",
-            "schema":{
-              "$ref":"#/definitions/delete"
-            }
-          }
-        }
       }
     }
   },
