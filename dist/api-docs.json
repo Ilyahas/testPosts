@@ -221,7 +221,7 @@
             "in": "body",
             "description": "Post to patch",
             "required": true,
-            "type": "array",
+            "type": "string",
             "schema": {
               "$ref": "#/definitions/patchPost"
             }
